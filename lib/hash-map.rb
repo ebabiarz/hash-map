@@ -25,14 +25,19 @@ class HashMap
     elsif self.hash_map[index].key == key
       self.hash_map[index].value = value
     else
-      current_node = self.hash_map[index]
-
-      while current_node.next_node != nil
-        current_node = current_node.next_node
-      end
-
+      current_node = set_next_node(index)
       current_node.next_node = Node.new(key, value)
     end
+  end
+
+  def set_next_node(index)
+    current_node = self.hash_map[index]
+
+    while current_node.next_node != nil
+      current_node = current_node.next_node
+    end
+
+    return current_node
   end
 
   def get(key)
@@ -53,6 +58,14 @@ class HashMap
       else
         return nil
       end
+    end
+  end
+
+  def has?(key)
+    if get(key) == nil
+      return false
+    else
+      return true
     end
   end
 end
