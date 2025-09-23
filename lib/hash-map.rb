@@ -94,6 +94,23 @@ class HashMap
     return value
   end
 
+  def length
+    count = 0
+
+    self.hash_map.each do |bucket|
+      if bucket != nil
+        count += 1
+        current_node = bucket
+
+        while current_node.next_node != nil
+          count += 1
+          current_node = current_node.next_node
+        end
+      end
+    end
+    return count
+  end
+
   def has?(key)
     if get(key) == nil
       return false
