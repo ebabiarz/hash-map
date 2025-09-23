@@ -17,20 +17,19 @@ class HashMap
   end
 
   def set(key, value)
-    hash_code = hash(key)
-    index = hash_code % self.capacity
+    index = hash(key) % self.capacity
 
     if self.hash_map[index] == nil
       self.hash_map[index] = Node.new(key, value)
     elsif self.hash_map[index].key == key
       self.hash_map[index].value = value
     else
-      current_node = set_next_node(index)
+      current_node = get_tail(index)
       current_node.next_node = Node.new(key, value)
     end
   end
 
-  def set_next_node(index)
+  def get_tail(index)
     current_node = self.hash_map[index]
 
     while current_node.next_node != nil
@@ -41,12 +40,12 @@ class HashMap
   end
 
   def get(key)
-    hash_code = hash(key)
-    index = hash_code % self.capacity
-
-    if self.hash_map[index].key == key
+    index = hash(key) % self.capacity
+    if self.hash_map[index] == nil
+      return nil
+    elsif self.hash_map[index].key == key
       return self.hash_map[index].value
-    elsif self.hash_map[index].next_node != nil
+    else
       current_node = self.hash_map[index]
 
       while current_node.key != key && current_node.next_node != nil
@@ -59,6 +58,40 @@ class HashMap
         return nil
       end
     end
+  end
+
+  def remove(key)
+    index = hash(key) % self.capacity
+
+    if self.hash_map[index].key == key && self.hash_map[index].next_node == nil
+      return remove_key_return_value(index)
+    elsif self.hash_map[index].key != key && self.hash_map[index].next_node != nil
+      current_node = self.hash_map[index]
+      previous_node = nil
+
+      while current_node.key != key && current_node.next_node != nil
+        previous_node = current_node
+        current_node = current_node.next_node
+      end
+
+      if current_node.key == key && current_node.next_node == nil
+        return remove_key_return_value(index)
+      elsif current_node.key == key && current_node.next_node != nil
+        value = current_node.value
+        previous_node.next_node = current_node.next_node
+        return value
+      else
+        return nil
+      end
+    else
+      return nil
+    end
+  end
+
+  def remove_key_return_value(index)
+    value = self.hash_map[index].value
+    self.hash_map[index] = nil
+    return value
   end
 
   def has?(key)
