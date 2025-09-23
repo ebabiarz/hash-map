@@ -111,6 +111,10 @@ class HashMap
     return count
   end
 
+  def clear
+    self.initialize(0.75)
+  end
+
   def has?(key)
     if get(key) == nil
       return false
