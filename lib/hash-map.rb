@@ -18,6 +18,7 @@ class HashMap
 
   def set(key, value)
     index = hash(key) % self.capacity
+    raise IndexError if index.negative? || index >= @buckets.length
 
     if self.hash_map[index] == nil
       self.hash_map[index] = Node.new(key, value)
@@ -62,6 +63,8 @@ class HashMap
 
   def get(key)
     index = hash(key) % self.capacity
+    raise IndexError if index.negative? || index >= @buckets.length
+
     if self.hash_map[index] == nil
       return nil
     elsif self.hash_map[index].key == key
@@ -83,6 +86,7 @@ class HashMap
 
   def remove(key)
     index = hash(key) % self.capacity
+    raise IndexError if index.negative? || index >= @buckets.length
 
     if self.hash_map[index].key == key && self.hash_map[index].next_node == nil
       return remove_key_return_value(index)
