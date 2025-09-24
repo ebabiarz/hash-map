@@ -1,7 +1,7 @@
 require './lib/hash-map'
 require './lib/node'
 
-test = HashMap.new(0.75, 2)
+test = HashMap.new(0.75)
 
 test.set('apple', 'red')
 test.set('banana', 'yellow')
@@ -15,21 +15,6 @@ test.set('ice cream', 'white')
 test.set('jacket', 'blue')
 test.set('kite', 'pink')
 test.set('lion', 'golden')
-
-puts test.get('apple')
-puts test.get('banana')
-puts test.get('carrot')
-puts test.get('dog')
-puts test.get('elephant')
-puts test.get('frog')
-puts test.get('grape')
-puts test.get('hat')
-puts test.get('ice cream')
-puts test.get('jacket')
-puts test.get('kite')
-puts test.get('lion')
-
-test.clear
 
 puts test.get('apple')
 puts test.get('banana')

@@ -27,6 +27,27 @@ class HashMap
       current_node = get_tail(index)
       current_node.next_node = Node.new(key, value)
     end
+
+    if self.length >= (self.capacity * self.load_factor)
+      self.grow_capacity
+    end
+  end
+
+  def grow_capacity
+    entries = self.hash_map
+    self.initialize(0.75, self.capacity * 2)
+
+    entries.each do |bucket|
+      if bucket != nil
+        self.set(bucket.key, bucket.value)
+        current_node = bucket
+
+        while current_node.next_node != nil
+          current_node = current_node.next_node
+          self.set(current_node.key, current_node.value)
+        end
+      end
+    end
   end
 
   def get_tail(index)
