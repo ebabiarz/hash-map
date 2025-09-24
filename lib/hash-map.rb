@@ -18,7 +18,7 @@ class HashMap
 
   def set(key, value)
     index = hash(key) % self.capacity
-    raise IndexError if index.negative? || index >= @buckets.length
+    raise IndexError if index.negative? || index >= @hash_map.length
 
     if self.hash_map[index] == nil
       self.hash_map[index] = Node.new(key, value)
@@ -63,7 +63,7 @@ class HashMap
 
   def get(key)
     index = hash(key) % self.capacity
-    raise IndexError if index.negative? || index >= @buckets.length
+    raise IndexError if index.negative? || index >= @hash_map.length
 
     if self.hash_map[index] == nil
       return nil
@@ -86,7 +86,7 @@ class HashMap
 
   def remove(key)
     index = hash(key) % self.capacity
-    raise IndexError if index.negative? || index >= @buckets.length
+    raise IndexError if index.negative? || index >= @hash_map.length
 
     if self.hash_map[index].key == key && self.hash_map[index].next_node == nil
       return remove_key_return_value(index)
@@ -159,6 +159,23 @@ class HashMap
         while current_node.next_node != nil
           current_node = current_node.next_node
           arr.push(current_node.key)
+        end
+      end
+    end
+    return arr
+  end
+
+  def values
+    arr = []
+
+    self.hash_map.each do |bucket|
+      if bucket != nil
+        current_node = bucket
+        arr.push(current_node.value)
+
+        while current_node.next_node != nil
+          current_node = current_node.next_node
+          arr.push(current_node.value)
         end
       end
     end

@@ -16,7 +16,7 @@ test.set('jacket', 'blue')
 test.set('kite', 'pink')
 test.set('lion', 'golden')
 
-p test.keys
+p test.values
 
 # puts test.get('apple')
 # puts test.get('banana')
