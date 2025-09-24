@@ -28,7 +28,7 @@ class HashMap
       current_node.next_node = Node.new(key, value)
     end
 
-    if self.length >= (self.capacity * self.load_factor)
+    if self.length > (self.capacity * self.load_factor)
       self.grow_capacity
     end
   end
