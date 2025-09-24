@@ -24,6 +24,18 @@ class HashMap
       self.hash_map[index] = Node.new(key, value)
     elsif self.hash_map[index].key == key
       self.hash_map[index].value = value
+    elsif self.hash_map[index].next_node != nil
+      current_node = self.hash_map[index]
+
+      while current_node.next_node != nil && current_node.key != key
+        current_node = current_node.next_node
+      end
+
+      if current_node.key == key
+        current_node.value = value
+      else
+        current_node.next_node = Node.new(key, value)
+      end
     else
       current_node = get_tail(index)
       current_node.next_node = Node.new(key, value)
@@ -99,9 +111,9 @@ class HashMap
         current_node = current_node.next_node
       end
 
-      if current_node.key == key && current_node.next_node == nil
+      if current_node.key == key && previous_node == nil
         return remove_key_return_value(index)
-      elsif current_node.key == key && current_node.next_node != nil
+      elsif current_node.key == key && previous_node != nil
         value = current_node.value
         previous_node.next_node = current_node.next_node
         return value
@@ -176,6 +188,23 @@ class HashMap
         while current_node.next_node != nil
           current_node = current_node.next_node
           arr.push(current_node.value)
+        end
+      end
+    end
+    return arr
+  end
+
+  def entries
+    arr = []
+
+    self.hash_map.each do |bucket|
+      if bucket != nil
+        current_node = bucket
+        arr.push([current_node.key, current_node.value])
+
+        while current_node.next_node != nil
+          current_node = current_node.next_node
+          arr.push([current_node.key, current_node.value])
         end
       end
     end

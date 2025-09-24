@@ -16,7 +16,46 @@ test.set('jacket', 'blue')
 test.set('kite', 'pink')
 test.set('lion', 'golden')
 
-p test.values
+p test.entries
+puts test.length
+puts test.capacity
+
+test.set('apple', 'green')
+test.set('dog', 'black')
+test.set('hat', 'purple')
+
+p test.entries
+puts test.length
+puts test.capacity
+
+test.set('moon', 'silver')
+
+p test.entries
+puts test.length
+puts test.capacity
+
+test.set('moon', 'gray')
+test.set('lion', 'yellow')
+test.set('grape', 'green')
+
+p test.entries
+puts test.length
+puts test.capacity
+
+puts ""
+puts ""
+
+puts test.get('moon')
+puts test.has?('grape')
+puts test.remove('lion')
+puts test.length
+puts test.keys
+puts test.values
+
+test.clear
+
+puts test.length
+puts test.capacity
 
 # puts test.get('apple')
 # puts test.get('banana')
