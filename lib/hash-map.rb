@@ -143,4 +143,21 @@ class HashMap
       return true
     end
   end
+
+  def keys
+    arr = []
+
+    self.hash_map.each do |bucket|
+      if bucket != nil
+        current_node = bucket
+        arr.push(current_node.key)
+
+        while current_node.next_node != nil
+          current_node = current_node.next_node
+          arr.push(current_node.key)
+        end
+      end
+    end
+    return arr
+  end
 end
